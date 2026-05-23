@@ -1,0 +1,38 @@
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
+const buildHeaders = (token, hasBody) => {
+  const headers = {};
+
+  if (hasBody) {
+    headers["Content-Type"] = "application/json";
+  }
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  return headers;
+};
+
+export const apiRequest = async (path, options = {}) => {
+  const { token, body, headers: customHeaders, ...restOptions } = options;
+
+  const response = await fetch(`${API_URL}${path}`, {
+    ...restOptions,
+    headers: {
+      ...buildHeaders(token, body !== undefined),
+      ...customHeaders,
+    },
+    body: body !== undefined ? JSON.stringify(body) : undefined,
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.message || "Something went wrong while calling the API.");
+  }
+
+  return data;
+};
+
+export { API_URL };
