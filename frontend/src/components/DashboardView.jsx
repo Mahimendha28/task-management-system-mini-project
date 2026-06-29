@@ -26,9 +26,9 @@ const EMPTY_PASSWORD_FORM = {
   newPassword: "",
   confirmPassword: "",
 };
-const PROJECT_TABLE_GRID = "xl:grid-cols-[minmax(0,1.55fr)_minmax(9rem,1fr)_minmax(7.5rem,0.85fr)_minmax(7.5rem,0.9fr)_minmax(10rem,1fr)]";
-const TASK_TABLE_GRID = "xl:grid-cols-[minmax(0,1.45fr)_minmax(9rem,1fr)_minmax(8rem,0.9fr)_minmax(7.5rem,0.8fr)_minmax(11rem,1fr)]";
-const USER_TABLE_GRID = "xl:grid-cols-[minmax(0,1.3fr)_minmax(10rem,1.1fr)_minmax(8.5rem,0.9fr)_minmax(7rem,0.75fr)_minmax(10rem,0.95fr)]";
+const PROJECT_TABLE_GRID = "grid-cols-[1fr_auto] items-center xl:grid-cols-[minmax(0,1.65fr)_minmax(9rem,1fr)_minmax(7rem,0.75fr)_minmax(7.5rem,0.85fr)_minmax(5.5rem,0.45fr)]";
+const TASK_TABLE_GRID = "grid-cols-[1fr_auto] items-center xl:grid-cols-[minmax(0,1.55fr)_minmax(9rem,0.95fr)_minmax(8rem,0.85fr)_minmax(7rem,0.7fr)_minmax(7.2rem,0.6fr)]";
+const USER_TABLE_GRID = "grid-cols-[1fr_auto] items-center xl:grid-cols-[minmax(0,1.35fr)_minmax(10rem,1.1fr)_minmax(8rem,0.8fr)_minmax(6.5rem,0.65fr)_minmax(5.5rem,0.45fr)]";
 
 const normalizeQuery = (value) => String(value || "").trim().toLowerCase();
 
@@ -38,6 +38,46 @@ const matchesSearchQuery = (searchQuery, values) => {
 
   return values.some((value) => normalizeQuery(value).includes(normalizedSearch));
 };
+
+function IconGlyph({ name }) {
+  const icons = {
+    edit: <path d="M4 16.5V20h3.5L18.2 9.3l-3.5-3.5L4 16.5Z M13.8 6.7l3.5 3.5" />,
+    delete: <path d="M4 7h16M9 7V5h6v2M7 7l1 13h8l1-13" />,
+    files: <path d="M14 2H6a2 2 0 0 0-2 2v16h14V6l-4-4Z M14 2v4h4 M8 13h6M8 17h4" />,
+    save: <path d="M5 3h12l2 2v16H5V3Z M8 3v6h8V3 M8 17h8" />,
+    close: <path d="M6 6l12 12M18 6 6 18" />,
+  };
+
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5" aria-hidden="true">
+      {icons[name] || icons.edit}
+    </svg>
+  );
+}
+
+function IconAction({ label, icon, onClick, tone = "light", as = "button", children }) {
+  const styles = {
+    light: "border-[#d7c39c]/35 bg-[#f5ead3] text-[#433521] hover:bg-[#fff6df]",
+    dark: "border-[#d8c39c]/18 bg-white/[0.05] text-[#e8d6b2] hover:bg-white/[0.1]",
+    danger: "border-rose-400/20 bg-rose-950/60 text-rose-200 hover:bg-rose-900/80",
+  };
+  const className = `inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45 ${styles[tone]}`;
+
+  if (as === "label") {
+    return (
+      <label className={`${className} cursor-pointer`} title={label} aria-label={label}>
+        <IconGlyph name={icon} />
+        {children}
+      </label>
+    );
+  }
+
+  return (
+    <button type="button" onClick={onClick} className={className} title={label} aria-label={label}>
+      <IconGlyph name={icon} />
+    </button>
+  );
+}
 
 export function DashboardView(props) {
   const {
@@ -792,7 +832,7 @@ function ProjectsPanel({ auth, route, setRoute, basePath, projectCreateRoute, pr
                       </div>
                     </div>
                   ) : (
-                    <div className={`grid gap-4 xl:items-center ${PROJECT_TABLE_GRID}`}>
+                    <div className={`grid gap-4 ${PROJECT_TABLE_GRID}`}>
                       <div className="flex min-w-0 flex-col gap-4 xl:gap-0">
                         <p className="text-lg font-semibold text-white">{project.name}</p>
                         <p className="mt-1 text-sm text-slate-500">{project.description || "No description provided."}</p>
@@ -805,9 +845,9 @@ function ProjectsPanel({ auth, route, setRoute, basePath, projectCreateRoute, pr
                       <div className="hidden min-w-0 text-sm text-slate-300 xl:block">{project.manager?.name || "Not set"}</div>
                       <div className="hidden xl:block"><TableBadge tone="gold">{project.members.length} members</TableBadge></div>
                       <div className="hidden xl:block"><TableBadge tone="warm">{project.deadline ? new Date(project.deadline).toLocaleDateString() : "Not set"}</TableBadge></div>
-                      <div className="flex flex-wrap items-center justify-start gap-2 xl:justify-end">
-                        <MiniButton text="Edit" onClick={() => { setEditingProjectId(project._id); setProjectDrafts((current) => ({ ...current, [project._id]: { name: project.name, description: project.description, status: project.status, deadline: helpers.formatDate(project.deadline), manager: project.manager?._id || "", members: project.members.map((member) => member._id) } })); }} tone="light" />
-                        <MiniButton text="Delete" onClick={() => deleteProject(project._id)} tone="danger" />
+                      <div className="flex flex-nowrap items-center justify-end gap-1">
+                        <IconAction label="Edit project" icon="edit" onClick={() => { setEditingProjectId(project._id); setProjectDrafts((current) => ({ ...current, [project._id]: { name: project.name, description: project.description, status: project.status, deadline: helpers.formatDate(project.deadline), manager: project.manager?._id || "", members: project.members.map((member) => member._id) } })); }} tone="light" />
+                        <IconAction label="Delete project" icon="delete" onClick={() => deleteProject(project._id)} tone="danger" />
                       </div>
                     </div>
                   )}
@@ -1010,7 +1050,7 @@ function TasksPanel({ route, setRoute, basePath, taskCreateRoute, auth, taskForm
                       </div>
                     </div>
                   ) : (
-                    <div className={`grid gap-4 xl:items-center ${TASK_TABLE_GRID}`}>
+                    <div className={`grid gap-4 ${TASK_TABLE_GRID}`}>
                       <div className="flex min-w-0 flex-col gap-4 xl:gap-0">
                         <p className="text-lg font-semibold text-white">{task.title}</p>
                         <p className="mt-1 text-sm text-slate-500">{task.description || "No description yet."}</p>
@@ -1023,10 +1063,12 @@ function TasksPanel({ route, setRoute, basePath, taskCreateRoute, auth, taskForm
                       <div className="hidden min-w-0 text-sm text-slate-300 xl:block">{task.project?.name || "No project"}</div>
                       <div className="hidden min-w-0 text-sm text-slate-300 xl:block">{task.assignedTo?.name || "Unassigned"}</div>
                       <div className="hidden xl:block"><TableBadge tone={task.status === "done" ? "gold" : task.status === "in-progress" ? "cyan" : "warm"}>{task.status.replace("-", " ")}</TableBadge></div>
-                      <div className="flex flex-wrap items-center justify-start gap-2 xl:justify-end">
-                        <MiniButton text="Edit" onClick={() => { setEditingTaskId(task._id); setTaskDrafts((current) => ({ ...current, [task._id]: { title: task.title, description: task.description, status: task.status, priority: task.priority, dueDate: helpers.formatDate(task.dueDate), assignedTo: task.assignedTo?._id || "" } })); }} tone="light" />
-                        {auth.role !== "team-member" ? <MiniButton text="Delete" onClick={() => deleteTask(task._id)} tone="danger" /> : null}
-                        <label className="inline-flex cursor-pointer items-center rounded-2xl border border-[#d7c39c] bg-[#f5ead3] px-4 py-2 text-sm font-semibold text-[#433521]">Files<input type="file" multiple className="hidden" onChange={(event) => uploadFiles(task._id, Array.from(event.target.files || []))} /></label>
+                      <div className="flex flex-nowrap items-center justify-end gap-1">
+                        <IconAction label="Edit task" icon="edit" onClick={() => { setEditingTaskId(task._id); setTaskDrafts((current) => ({ ...current, [task._id]: { title: task.title, description: task.description, status: task.status, priority: task.priority, dueDate: helpers.formatDate(task.dueDate), assignedTo: task.assignedTo?._id || "" } })); }} tone="light" />
+                        {auth.role !== "team-member" ? <IconAction label="Delete task" icon="delete" onClick={() => deleteTask(task._id)} tone="danger" /> : null}
+                        <IconAction label="Upload files" icon="files" as="label">
+                          <input type="file" multiple className="hidden" onChange={(event) => uploadFiles(task._id, Array.from(event.target.files || []))} />
+                        </IconAction>
                       </div>
                     </div>
                   )}
@@ -1256,7 +1298,7 @@ function UsersPanel({ users, editingUserId, setEditingUserId, userDrafts, setUse
                       </div>
                     </div>
                   ) : (
-                    <div className={`grid gap-4 xl:items-center ${USER_TABLE_GRID}`}>
+                    <div className={`grid gap-4 ${USER_TABLE_GRID}`}>
                       <div className="flex min-w-0 flex-col gap-4 xl:gap-0">
                         <div className="flex min-w-0 items-center gap-3">
                         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f5dfb2] text-base font-bold text-[#171411]">
@@ -1290,9 +1332,10 @@ function UsersPanel({ users, editingUserId, setEditingUserId, userDrafts, setUse
                         </TableBadge>
                       </div>
 
-                      <div className="flex flex-wrap items-center justify-start gap-2 xl:justify-end">
-                        <MiniButton
-                          text="Edit"
+                      <div className="flex flex-nowrap items-center justify-end gap-1">
+                        <IconAction
+                          label="Edit user"
+                          icon="edit"
                           onClick={() => {
                             setEditingUserId(user._id);
                             setUserDrafts((current) => ({
@@ -1307,7 +1350,7 @@ function UsersPanel({ users, editingUserId, setEditingUserId, userDrafts, setUse
                           }}
                           tone="light"
                         />
-                        <MiniButton text="Delete" onClick={() => deleteUser(user._id)} tone="danger" />
+                        <IconAction label="Delete user" icon="delete" onClick={() => deleteUser(user._id)} tone="danger" />
                       </div>
                     </div>
                   )}
@@ -1468,10 +1511,10 @@ function ChangePasswordPanel({ form, setForm, loading, onSubmit }) {
   );
 }
 
-function DarkStatCard({ label, value, tone = "dark", compact = false, analytics = false }) {
+function DarkStatCard({ label, value, tone = "dark", compact = false, analytics = false, detail }) {
   return (
     <div
-      className={`rounded-[1.5rem] border ${compact ? "p-4" : "p-5"} ${tone === "gold"
+      className={`dashboard-reveal rounded-[0.85rem] border transition duration-300 hover:-translate-y-0.5 p-2.5 ${tone === "gold"
         ? "border-[#e2cfa5] bg-[#f1ddb4] text-[#171411]"
         : analytics
           ? "border-[#dcc8a0]/12 bg-white/[0.05] text-white"
@@ -1479,14 +1522,14 @@ function DarkStatCard({ label, value, tone = "dark", compact = false, analytics 
         }`}
     >
       <p
-        className={`text-sm font-medium ${tone === "gold" ? "text-[#5a4724]" : analytics ? "text-[#d8c9af]" : "text-[#bfae90]"
+        className={`text-[10px] font-semibold uppercase tracking-[0.12em] ${tone === "gold" ? "text-[#5a4724]" : analytics ? "text-[#d8c9af]" : "text-[#bfae90]"
           }`}
       >
         {label}
       </p>
-      <p className={`${compact ? "mt-4 text-3xl" : "mt-5 text-4xl"} font-semibold`}>{value}</p>
-      <p className={`mt-3 text-sm ${tone === "gold" ? "text-[#6d592f]" : analytics ? "text-[#f1ddb4]" : "text-[#8c6b2f]"}`}>
-        {analytics ? "Live dashboard" : "0% all time"}
+      <p className="mt-1 text-xl font-semibold leading-none">{value}</p>
+      <p className={`mt-1 truncate text-[10px] ${tone === "gold" ? "text-[#6d592f]" : analytics ? "text-[#f1ddb4]" : "text-[#b99b65]"}`}>
+        {detail || (analytics ? "Live dashboard" : "Current records")}
       </p>
     </div>
   );
@@ -1560,13 +1603,14 @@ function PaginationControls({ currentPage, totalPages, totalItems, itemsLabel, o
 }
 
 function TableBadge({ children, tone = "gold" }) {
-  const tones = {
+  const styles = {
     gold: "bg-[#f6e4b8] text-[#7a5c1f]",
     cyan: "bg-[#9ae7f2] text-[#16697a]",
     warm: "bg-[#4c3418] text-[#f0a24b]",
+    light: "border-white/10 bg-white/5 text-white"
   };
 
-  return <span className={`inline-flex min-h-[44px] max-w-full items-center justify-center rounded-full px-4 py-2 text-center text-sm font-semibold leading-5 ${tones[tone]}`}>{children}</span>;
+  return <span className={`inline-flex items-center justify-center rounded-full px-2.5 py-0.5 text-xs font-semibold leading-4 whitespace-nowrap ${styles[tone] || styles.gold}`}>{children}</span>;
 }
 
 function InlineMeta({ label, value }) {

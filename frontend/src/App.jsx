@@ -261,20 +261,18 @@ function App() {
 
   const view = getView(route, auth);
   const mainClassName =
-    view === "dashboard"
-      ? theme === "light"
-        ? "min-h-screen light-dashboard transition-colors duration-500 bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.18),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.15),transparent_28%),linear-gradient(180deg,#f8f2e8_0%,#f4eee4_100%)] text-slate-900"
-        : "min-h-screen transition-colors duration-500 bg-[radial-gradient(circle_at_top_left,rgba(140,107,47,0.16),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(232,214,178,0.08),transparent_28%),linear-gradient(180deg,#050505_0%,#0b0907_42%,#15100d_100%)] text-white"
-      : "min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(140,107,47,0.16),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(232,214,178,0.08),transparent_28%),linear-gradient(180deg,#050505_0%,#0b0907_42%,#15100d_100%)] text-white";
+    theme === "light"
+      ? "min-h-screen landing-light light-dashboard transition-colors duration-500 bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.18),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.15),transparent_28%),linear-gradient(180deg,#f8f2e8_0%,#f4eee4_100%)] text-slate-900"
+      : "min-h-screen transition-colors duration-500 bg-[radial-gradient(circle_at_top_left,rgba(140,107,47,0.16),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(232,214,178,0.08),transparent_28%),linear-gradient(180deg,#050505_0%,#0b0907_42%,#15100d_100%)] text-white";
 
   return (
     <main className={mainClassName}>
       <Notice notice={notice} />
-      {view === "landing" ? <LandingScreen /> : null}
-      {view === "login" ? <AuthScreen mode="login" form={loginForm} setForm={setLoginForm} loading={loading.auth} onSubmit={(event) => { event.preventDefault(); authRequest("/auth/login", loginForm, () => setLoginForm({ email: "", password: "" })); }} /> : null}
-      {view === "register" ? <AuthScreen mode="register" form={registerForm} setForm={setRegisterForm} loading={loading.auth} onSubmit={(event) => { event.preventDefault(); authRequest("/auth/register", registerForm, () => setRegisterForm({ name: "", email: "", password: "", confirmPassword: "", role: "team-member" })); }} /> : null}
-      {view === "forgot-password" ? <ForgotPasswordScreen form={forgotPasswordForm} setForm={setForgotPasswordForm} loading={loading.auth} onSubmit={forgotPasswordRequest} resetPasswordMeta={resetPasswordMeta} /> : null}
-      {view === "reset-password" ? <ResetPasswordScreen form={resetPasswordForm} setForm={setResetPasswordForm} loading={loading.auth} onSubmit={resetPasswordRequest} /> : null}
+      {view === "landing" ? <LandingScreen theme={theme} setTheme={setTheme} /> : null}
+      {view === "login" ? <AuthScreen mode="login" form={loginForm} setForm={setLoginForm} loading={loading.auth} theme={theme} onSubmit={(event) => { event.preventDefault(); authRequest("/auth/login", loginForm, () => setLoginForm({ email: "", password: "" })); }} /> : null}
+      {view === "register" ? <AuthScreen mode="register" form={registerForm} setForm={setRegisterForm} loading={loading.auth} theme={theme} onSubmit={(event) => { event.preventDefault(); authRequest("/auth/register", registerForm, () => setRegisterForm({ name: "", email: "", password: "", confirmPassword: "", role: "team-member" })); }} /> : null}
+      {view === "forgot-password" ? <ForgotPasswordScreen form={forgotPasswordForm} setForm={setForgotPasswordForm} loading={loading.auth} theme={theme} onSubmit={forgotPasswordRequest} resetPasswordMeta={resetPasswordMeta} /> : null}
+      {view === "reset-password" ? <ResetPasswordScreen form={resetPasswordForm} setForm={setResetPasswordForm} loading={loading.auth} theme={theme} onSubmit={resetPasswordRequest} /> : null}
       {view === "dashboard" && auth ? (
         <DashboardView
           auth={auth}

@@ -70,9 +70,9 @@ export function Notice({ notice }) {
 
 export function Card({ title, subtitle, children }) {
   return (
-    <section className="rounded-[2rem] border border-[#d8c39c]/14 bg-[linear-gradient(180deg,#0d0b0a_0%,#17120e_100%)] p-6 text-white shadow-[0_24px_70px_rgba(0,0,0,0.26)] backdrop-blur">
-      <div className="mb-5">
-        <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#9a8054]">{title}</p>
+    <section className="dashboard-reveal rounded-[1.4rem] border border-[#d8c39c]/14 bg-[linear-gradient(180deg,#0d0b0a_0%,#17120e_100%)] p-5 text-white shadow-[0_18px_54px_rgba(0,0,0,0.22)] backdrop-blur">
+      <div className="mb-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#9a8054]">{title}</p>
         <p className="mt-2 text-sm leading-6 text-[#d7c8af]">{subtitle}</p>
       </div>
       {children}
@@ -246,7 +246,7 @@ export function MiniButton({ text, onClick, tone, disabled = false }) {
     light: "border border-[#d7c39c] bg-[#f5ead3] text-[#433521]",
     danger: "bg-[#7f1d1d] text-[#f9e4c0]",
   };
-  return <button type="button" onClick={onClick} disabled={disabled} className={`inline-flex min-h-[44px] min-w-[5.75rem] items-center justify-center rounded-2xl px-4 py-2 text-sm font-semibold whitespace-nowrap transition disabled:cursor-not-allowed disabled:opacity-45 ${styles[tone]}`}>{text}</button>;
+  return <button type="button" onClick={onClick} disabled={disabled} className={`inline-flex min-h-10 min-w-[5rem] items-center justify-center rounded-xl px-3.5 py-2 text-sm font-semibold whitespace-nowrap transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:translate-y-0 ${styles[tone]}`}>{text}</button>;
 }
 
 export function Tag({ text }) {

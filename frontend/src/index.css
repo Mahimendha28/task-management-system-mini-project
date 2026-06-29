@@ -101,20 +101,279 @@ input[type="date"]::-webkit-datetime-edit-year-field {
 .hover-glow { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 .hover-glow:hover { box-shadow: 0 0 25px rgba(185, 155, 101, 0.25); border-color: rgba(232, 214, 178, 0.35); transform: translateY(-2px); }
 
+.landing-reveal {
+  animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 32%;
+}
+
+.dashboard-reveal {
+  animation: slideUpFade 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.dashboard-row {
+  transition: background 220ms ease, transform 220ms ease;
+}
+
+.dashboard-row:hover {
+  background: rgba(255, 255, 255, 0.035);
+  transform: translateX(2px);
+}
+
+.landing-headline {
+  background: linear-gradient(90deg, #ffffff 0%, #f1ddb4 34%, #ffffff 68%, #d8b66b 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: headlineFlow 7s ease-in-out infinite, slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes headlineFlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ===== LANDING LIGHT THEME ===== */
+.landing-light {
+  background:
+    radial-gradient(circle at top left, rgba(251, 191, 36, 0.18), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.14), transparent 28%),
+    linear-gradient(180deg, #f8f2e8 0%, #f4eee4 100%);
+  color: #0f172a;
+}
+
+.landing-light .landing-headline {
+  background: linear-gradient(90deg, #0f172a 0%, #b45309 34%, #0f172a 68%, #0369a1 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Hero text stays legible over video in light mode */
+.landing-light .landing-hero h2.landing-headline {
+  color: #0f172a;
+  text-shadow: 0 2px 12px rgba(255,255,255,0.8);
+}
+.landing-light .landing-hero p.text-slate-200 {
+  color: #1e293b !important;
+  text-shadow: 0 1px 8px rgba(255,255,255,0.9);
+}
+.landing-light .landing-hero .landing-reveal p.inline-flex {
+  background: rgba(255,255,255,0.55) !important;
+  border-color: rgba(180, 83, 9, 0.35) !important;
+  color: #b45309 !important;
+}
+
+/* All sections except hero get light background */
+.landing-light section:not(.landing-hero),
+.landing-light footer {
+  border-color: rgba(203, 213, 225, 0.5) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #fffaf0 100%) !important;
+  color: #0f172a !important;
+}
+
+/* ── Slider section & cards ── */
+.landing-light .landing-slider-track > div {
+  border-color: rgba(203, 213, 225, 0.5) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #fdf8ef 100%) !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
+  color: #0f172a !important;
+}
+.landing-light .landing-slider-track > div p,
+.landing-light .landing-slider-track > div .text-white,
+.landing-light .landing-slider-track > div .text-base {
+  color: #0f172a !important;
+}
+.landing-light .landing-slider-track > div .text-\[\#d7c8af\],
+.landing-light .landing-slider-track > div .text-\[\#f3e7d0\] {
+  color: #475569 !important;
+}
+/* Slider badge chips */
+.landing-light .landing-slider-track > div span.rounded-full {
+  background: #f1f5f9 !important;
+  border-color: rgba(148, 163, 184, 0.4) !important;
+  color: #334155 !important;
+}
+
+/* ── Projects showcase section ── */
+.landing-light #projects .group {
+  border-color: rgba(203, 213, 225, 0.5) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #fdf8ef 100%) !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
+  color: #0f172a !important;
+}
+.landing-light #projects h4 {
+  color: #0f172a !important;
+}
+.landing-light #projects .text-\[\#d7c8af\],
+.landing-light #projects .text-\[\#f3e7d0\] {
+  color: #475569 !important;
+}
+.landing-light #projects .text-\[\#f1ddb4\] {
+  color: #b45309 !important;
+}
+/* Progress bar bg in project cards */
+.landing-light #projects .bg-white\/8 {
+  background: rgba(203, 213, 225, 0.4) !important;
+}
+/* Status badge chip in projects */
+.landing-light #projects span.rounded-full {
+  background: #f1f5f9 !important;
+  border-color: rgba(148, 163, 184, 0.4) !important;
+  color: #334155 !important;
+}
+/* Stats boxes in projects section */
+.landing-light #projects .bg-white\/\[0\.03\] {
+  background: rgba(255,255,255,0.8) !important;
+  border-color: rgba(203, 213, 225, 0.4) !important;
+  color: #0f172a !important;
+}
+.landing-light #projects .text-\[\#9a8054\] {
+  color: #b45309 !important;
+}
+
+/* ── Task types section ── */
+.landing-light #tasks .group {
+  border-color: rgba(203, 213, 225, 0.5) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #fdf8ef 100%) !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
+  color: #0f172a !important;
+}
+.landing-light #tasks p.text-xl,
+.landing-light #tasks h4 {
+  color: #0f172a !important;
+}
+.landing-light #tasks .text-\[\#d7c8af\],
+.landing-light #tasks .text-\[\#f3e7d0\] {
+  color: #475569 !important;
+}
+.landing-light #tasks .text-\[\#f1ddb4\] {
+  color: #b45309 !important;
+}
+/* Progress bar bg in task cards */
+.landing-light #tasks .bg-white\/8 {
+  background: rgba(203, 213, 225, 0.4) !important;
+}
+/* Task badge chips */
+.landing-light #tasks span.rounded-full {
+  background: #f1f5f9 !important;
+  border-color: rgba(148, 163, 184, 0.4) !important;
+  color: #334155 !important;
+}
+/* Number badge on task types (mobile node badge) */
+.landing-light #tasks .bg-\[linear-gradient\(135deg\,\#111111_0\%\,\#8c6b2f_100\%\)\] {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #ffffff !important;
+}
+/* Timeline node */
+.landing-light #tasks .bg-\[\#111111\] {
+  background: #ffffff !important;
+  border-color: #d97706 !important;
+  color: #92400e !important;
+}
+/* Center timeline rail */
+.landing-light #tasks .bg-\[linear-gradient\(180deg\,rgba\(216\,182\,107\,0\.1\)_0\%\,\#d8b66b_30\%\,\#38bdf8_70\%\,rgba\(56\,189\,248\,0\.1\)_100\%\)\] {
+  background: linear-gradient(180deg, rgba(180,83,9,0.1) 0%, #b45309 30%, #0369a1 70%, rgba(3,105,161,0.1) 100%) !important;
+}
+
+/* ── Navbar (fixed pill) ── */
+.landing-light .fixed > div {
+  background: rgba(255, 252, 245, 0.90) !important;
+  border-color: rgba(180, 83, 9, 0.18) !important;
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* ── Generic text color fixes ── */
+.landing-light .text-white {
+  color: #0f172a !important;
+}
+.landing-light .text-slate-400,
+.landing-light .text-slate-500,
+.landing-light .text-slate-300,
+.landing-light .text-\[\#d7c8af\],
+.landing-light .text-\[\#bfae90\],
+.landing-light .text-white\/80 {
+  color: #475569 !important;
+}
+.landing-light .text-\[\#f1ddb4\],
+.landing-light .text-\[\#b99b65\],
+.landing-light .text-\[\#9a8054\] {
+  color: #b45309 !important;
+}
+
+/* Generic glass backgrounds */
+.landing-light .bg-white\/\[0\.03\],
+.landing-light .bg-white\/\[0\.04\],
+.landing-light .bg-white\/\[0\.05\],
+.landing-light .bg-white\/10 {
+  background: rgba(255, 255, 255, 0.72) !important;
+  color: #1f2937 !important;
+}
+
+/* Gold chip backgrounds → amber in light */
+.landing-light .bg-\[\#e8d6b2\],
+.landing-light .bg-\[\#f1ddb4\] {
+  background: #b45309 !important;
+  color: #ffffff !important;
+}
+
+/* Border fixes */
+.landing-light .border-\[\#dcc8a0\]\/14,
+.landing-light .border-\[\#dcc8a0\]\/12,
+.landing-light .border-\[\#d8c39c\]\/14 {
+  border-color: rgba(148, 163, 184, 0.28) !important;
+}
+
+/* Footer text fixes */
+.landing-light footer .text-\[\#a8977b\] {
+  color: #64748b !important;
+}
+.landing-light footer .border-white\/8 {
+  border-color: rgba(203, 213, 225, 0.4) !important;
+}
+.landing-light footer button.hover\:text-white:hover {
+  color: #0f172a !important;
+}
+
+@supports not (animation-timeline: view()) {
+  .landing-reveal {
+    animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .landing-slider-track {
     animation: none;
   }
+
+  .landing-reveal,
+  .dashboard-reveal,
+  .animate-slide-up-fade,
+  .animate-slide-right-fade,
+  .animate-slide-left-fade,
+  .animate-float {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
-/* Light Theme Overrides */
+/* ===== DASHBOARD LIGHT THEME ===== */
+
+/* -- Main panel / card backgrounds -- */
 .light-dashboard .bg-\[\#171412\],
 .light-dashboard .bg-\[\#111111\],
 .light-dashboard .bg-\[\#0d0b0a\],
 .light-dashboard .bg-\[\#15110d\],
 .light-dashboard .bg-\[\#1c150f\],
 .light-dashboard .bg-\[\#17120e\],
+.light-dashboard .bg-\[\#101010\],
 .light-dashboard .bg-\[linear-gradient\(180deg\,\#0c0b09_0\%\,\#15110e_52\%\,\#1c150f_100\%\)\],
 .light-dashboard .bg-\[linear-gradient\(180deg\,\#0d0b0a_0\%\,\#15110d_100\%\)\],
 .light-dashboard .bg-\[linear-gradient\(180deg\,\#0d0b0a_0\%\,\#17120e_100\%\)\],
@@ -123,20 +382,22 @@ input[type="date"]::-webkit-datetime-edit-year-field {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
 }
 
+/* -- Borders -- */
 .light-dashboard .border-\[\#dbc38f\]\/20,
 .light-dashboard .border-\[\#d8b66b\]\/14,
 .light-dashboard .border-white\/8,
 .light-dashboard .border-\[\#d8c39c\]\/14,
 .light-dashboard .border-\[\#2a241c\],
 .light-dashboard .border-white\/10,
-.light-dashboard .border-\[\#dcc8a0\]\/12 {
+.light-dashboard .border-\[\#dcc8a0\]\/12,
+.light-dashboard .border-\[\#d8c39c\]\/18 {
   border-color: #e2e8f0 !important;
 }
 
+/* -- Text colors -- */
 .light-dashboard .text-white {
   color: #0f172a !important;
 }
-
 .light-dashboard .text-slate-400,
 .light-dashboard .text-slate-500,
 .light-dashboard .text-slate-300,
@@ -144,32 +405,451 @@ input[type="date"]::-webkit-datetime-edit-year-field {
 .light-dashboard .text-\[\#bfae90\] {
   color: #475569 !important;
 }
-
 .light-dashboard .text-\[\#e8d6b2\],
 .light-dashboard .text-\[\#b99b65\],
 .light-dashboard .text-\[\#9a8054\] {
   color: #b45309 !important;
 }
+.light-dashboard .text-\[\#f1ddb4\],
+.light-dashboard .text-\[\#f0e7d7\] {
+  color: #92400e !important;
+}
 
+/* -- Glass card backgrounds -- */
 .light-dashboard .bg-white\/\[0\.03\],
 .light-dashboard .bg-white\/\[0\.04\],
 .light-dashboard .bg-white\/\[0\.05\],
 .light-dashboard .bg-white\/8,
-.light-dashboard .bg-white\/10,
-.light-dashboard .bg-\[\#101010\],
-.light-dashboard button.bg-\[\#111111\] {
-  background: #fdfaf4 !important;
-  color: #1b140d !important;
-  border: 1px solid rgba(216, 182, 107, 0.3) !important;
-  box-shadow: 0 4px 15px rgba(216, 182, 107, 0.08) !important;
+.light-dashboard .bg-white\/10 {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
 }
 
-.light-dashboard .border-\[\#d8c39c\]\/18 {
-  border-color: #cbd5e1 !important;
-}
-.light-dashboard input::placeholder {
+/* -- Input placeholder -- */
+.light-dashboard input::placeholder,
+.light-dashboard textarea::placeholder {
   color: #94a3b8 !important;
 }
 
+/* -- Input / textarea / select fields -- */
+.light-dashboard input,
+.light-dashboard textarea {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+.light-dashboard input:focus,
+.light-dashboard textarea:focus {
+  border-color: #b45309 !important;
+  box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.12) !important;
+}
 
+/* date input calendar icon in light mode */
+.light-dashboard input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: none;
+  opacity: 0.6;
+  cursor: pointer;
+}
+.light-dashboard input[type="date"]::-webkit-datetime-edit,
+.light-dashboard input[type="date"]::-webkit-datetime-edit-text,
+.light-dashboard input[type="date"]::-webkit-datetime-edit-month-field,
+.light-dashboard input[type="date"]::-webkit-datetime-edit-day-field,
+.light-dashboard input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #0f172a !important;
+}
 
+/* -- Field labels -- */
+.light-dashboard label > span.text-\[\#e8d6b2\] {
+  color: #374151 !important;
+}
+
+/* -- SelectField trigger button -- */
+.light-dashboard .bg-white\/\[0\.04\].rounded-2xl {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* -- SelectField & MultiSelect dropdown panel -- */
+.light-dashboard .bg-\[linear-gradient\(180deg\,\#100d0a_0\%\,\#17120e_100\%\)\] {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Dropdown option rows */
+.light-dashboard .bg-\[linear-gradient\(180deg\,\#100d0a_0\%\,\#17120e_100\%\)\] button {
+  color: #374151 !important;
+}
+.light-dashboard .bg-\[linear-gradient\(180deg\,\#100d0a_0\%\,\#17120e_100\%\)\] button:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+/* Selected option */
+.light-dashboard .bg-\[linear-gradient\(180deg\,\#100d0a_0\%\,\#17120e_100\%\)\] button.bg-\[\#f1ddb4\]\/10 {
+  background: rgba(180, 83, 9, 0.08) !important;
+  color: #92400e !important;
+}
+/* Dropdown chevron */
+.light-dashboard svg.text-\[\#e8d6b2\] {
+  color: #b45309 !important;
+}
+/* Selection check circle */
+.light-dashboard .border-\[\#d8c39c\]\/18.text-transparent {
+  border-color: #cbd5e1 !important;
+}
+.light-dashboard .border-\[\#d8c39c\]\/40.bg-\[\#e8d6b2\] {
+  background: #b45309 !important;
+  border-color: #b45309 !important;
+  color: #ffffff !important;
+}
+
+/* -- MultiSelect tag chips -- */
+.light-dashboard .bg-\[linear-gradient\(180deg\,\#100d0a_0\%\,\#17120e_100\%\)\].rounded-full {
+  background: #fef3c7 !important;
+  border-color: rgba(180, 83, 9, 0.25) !important;
+  color: #92400e !important;
+}
+.light-dashboard .text-\[\#e8d6b2\].text-xs {
+  color: #92400e !important;
+}
+
+/* -- Native select (HeaderSelect) -- */
+.light-dashboard select {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+.light-dashboard select option {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* -- FilterChip active state -- */
+.light-dashboard .bg-\[\#e8d6b2\].text-\[\#141414\] {
+  background: #b45309 !important;
+  color: #ffffff !important;
+}
+/* FilterChip inactive state */
+.light-dashboard .bg-white\/\[0\.04\].text-slate-400 {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+/* -- Table container inner bg -- */
+.light-dashboard .bg-\[\#111111\].rounded-\[1\.6rem\] {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* -- Table header row -- */
+.light-dashboard .border-white\/10.text-\[\#e8d6b2\] {
+  color: #b45309 !important;
+  border-color: #e2e8f0 !important;
+  background: #f8fafc !important;
+}
+
+/* -- Table row dividers -- */
+.light-dashboard .divide-white\/8 > * + * {
+  border-color: #e2e8f0 !important;
+}
+
+/* -- DarkStatCard gold variant -- */
+.light-dashboard .border-\[\#e2cfa5\].bg-\[\#f1ddb4\] {
+  background: #fff7ed !important;
+  border-color: #fed7aa !important;
+  color: #92400e !important;
+}
+.light-dashboard .border-\[\#e2cfa5\].bg-\[\#f1ddb4\] p.text-\[\#5a4724\] {
+  color: #b45309 !important;
+}
+.light-dashboard .border-\[\#e2cfa5\].bg-\[\#f1ddb4\] p.text-\[\#6d592f\] {
+  color: #d97706 !important;
+}
+
+/* -- DarkStatCard dark/analytics variant -- */
+.light-dashboard .border-\[\#d8b66b\]\/14.bg-\[\#171412\] {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+.light-dashboard .border-\[\#dcc8a0\]\/12.bg-white\/\[0\.05\] {
+  background: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* -- Overview welcome card -- */
+.light-dashboard .bg-\[linear-gradient\(135deg\,\#0c0b09_0\%\,\#15110e_44\%\,\#3d2b13_100\%\)\] {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 44%, #fde68a 100%) !important;
+  color: #92400e !important;
+}
+.light-dashboard .bg-\[linear-gradient\(135deg\,\#0c0b09_0\%\,\#15110e_44\%\,\#3d2b13_100\%\)\] .text-white {
+  color: #92400e !important;
+}
+.light-dashboard .bg-\[linear-gradient\(135deg\,\#0c0b09_0\%\,\#15110e_44\%\,\#3d2b13_100\%\)\] .text-\[\#f0e7d7\] {
+  color: #b45309 !important;
+}
+.light-dashboard .bg-\[linear-gradient\(135deg\,\#0c0b09_0\%\,\#15110e_44\%\,\#3d2b13_100\%\)\] .text-\[\#e8d6b2\] {
+  color: #92400e !important;
+}
+
+/* -- Sidebar -- */
+.light-dashboard aside {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 4px 0 20px rgba(0,0,0,0.06) !important;
+}
+.light-dashboard aside .text-white {
+  color: #0f172a !important;
+}
+.light-dashboard aside .text-slate-400,
+.light-dashboard aside .text-slate-500 {
+  color: #64748b !important;
+}
+.light-dashboard aside .border-white\/8 {
+  border-color: #e2e8f0 !important;
+}
+.light-dashboard aside .bg-white\/\[0\.03\] {
+  background: #f8fafc !important;
+}
+/* Active nav item in sidebar */
+.light-dashboard aside .bg-\[linear-gradient\(90deg\,\#e8d6b2_0\%\,\#c89f4b_100\%\)\] {
+  background: linear-gradient(90deg, #b45309 0%, #d97706 100%) !important;
+  color: #ffffff !important;
+}
+.light-dashboard aside .bg-\[linear-gradient\(90deg\,\#e8d6b2_0\%\,\#c89f4b_100\%\)\] svg {
+  stroke: #ffffff !important;
+}
+/* Hover items in sidebar */
+.light-dashboard aside button:not(.bg-\[linear-gradient\(90deg\,\#e8d6b2_0\%\,\#c89f4b_100\%\)\]):hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+/* User avatar in sidebar */
+.light-dashboard aside .bg-\[\#e8d6b2\] {
+  background: #b45309 !important;
+  color: #ffffff !important;
+}
+
+/* -- MiniButton light tone -- */
+.light-dashboard .bg-\[\#f5ead3\].text-\[\#433521\] {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* -- MiniButton dark tone (Save) -- */
+.light-dashboard .bg-\[\#111111\].text-\[\#e8d6b2\] {
+  background: #b45309 !important;
+  color: #ffffff !important;
+}
+
+/* -- IconAction light tone -- */
+.light-dashboard .bg-\[\#f5ead3\].text-\[\#433521\] {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #374151 !important;
+}
+
+/* -- PaginationControls page indicator -- */
+.light-dashboard .bg-white\/\[0\.03\].text-\[\#e8d6b2\] {
+  background: #f8fafc !important;
+  color: #b45309 !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* -- Search form -- */
+.light-dashboard .bg-white\/\[0\.04\].rounded-full {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+.light-dashboard form .bg-\[\#e8d6b2\].rounded-full {
+  background: #b45309 !important;
+  color: #ffffff !important;
+}
+.light-dashboard form .bg-white\/\[0\.04\].rounded-full.text-\[\#e8d6b2\] {
+  background: #f1f5f9 !important;
+  color: #374151 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* -- EmptyState -- */
+.light-dashboard .border-white\/10.bg-white\/\[0\.04\] {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+.light-dashboard .border-white\/10.bg-white\/\[0\.04\] .text-white {
+  color: #0f172a !important;
+}
+
+/* -- MetricBox -- */
+.light-dashboard .bg-\[\#f5ead3\] {
+  background: #fff7ed !important;
+  border: 1px solid #fed7aa;
+}
+
+/* -- Avatar initials in user table -- */
+.light-dashboard .bg-\[\#f5dfb2\] {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+}
+
+/* -- Chart center dot -- */
+.light-dashboard .bg-\[\#17120e\].rounded-full {
+  background: #ffffff !important;
+}
+
+/* -- Task distribution bars -- */
+.light-dashboard .bg-\[\#eadcc1\] {
+  background: #e2e8f0 !important;
+}
+
+/* -- Header section (top bar) -- */
+.light-dashboard .text-\[\#9a8054\] {
+  color: #b45309 !important;
+}
+.light-dashboard .text-white\/80 {
+  color: #475569 !important;
+}
+
+/* -- TableBadge warm (dark background) -- */
+.light-dashboard .bg-\[\#4c3418\].text-\[\#f0a24b\] {
+  background: #fef3c7 !important;
+  color: #b45309 !important;
+}
+
+/* -- Report card record rows -- */
+.light-dashboard .bg-white\/\[0\.04\].text-\[\#d7c8af\] {
+  background: #f8fafc !important;
+  color: #374151 !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* -- Change password info box -- */
+.light-dashboard .border-\[\#d8c39c\]\/12.bg-white\/\[0\.04\].text-\[\#d7c8af\] {
+  background: #f8fafc !important;
+  color: #374151 !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* -- Chart mini bg boxes -- */
+.light-dashboard .bg-\[linear-gradient\(180deg\,\#16110d_0\%\,\#211811_100\%\)\] {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+.light-dashboard .border-dashed.border-\[\#5a4724\] {
+  border-color: #cbd5e1 !important;
+}
+
+/* -- Recent work items and project timeline cards -- */
+.light-dashboard .border-\[\#dcc8a0\]\/12.bg-white\/\[0\.04\] {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* ===== AUTH CARD LIGHT THEME ===== */
+.landing-light .auth-card {
+  background: linear-gradient(180deg, #ffffff 0%, #fffbf5 100%) !important;
+  border-color: rgba(185, 155, 101, 0.3) !important;
+  box-shadow: 0 20px 50px rgba(185, 155, 101, 0.12) !important;
+  color: #0f172a !important;
+}
+.landing-light .auth-card h2,
+.landing-light .auth-card p,
+.landing-light .auth-card label,
+.landing-light .auth-card div,
+.landing-light .auth-card span {
+  color: #0f172a !important;
+}
+.landing-light .auth-card input,
+.landing-light .auth-card select {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+.landing-light .auth-card input::placeholder {
+  color: #94a3b8 !important;
+}
+.landing-light .auth-card button[type="submit"] {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #ffffff !important;
+}
+.landing-light .auth-card button {
+  color: #0f172a !important;
+}
+.landing-light .auth-card button.font-bold {
+  color: #b45309 !important;
+}
+.landing-light .auth-card p.text-\[\#bfae90\],
+.landing-light .auth-card p.text-\[\#cdbb9d\],
+.landing-light .auth-card p.text-\[\#9f8f77\],
+.landing-light .auth-card p.text-\[\#d7c8af\] {
+  color: #475569 !important;
+}
+.landing-light .auth-card button[type="submit"],
+.landing-light .auth-card button[type="submit"]:hover {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.35) !important;
+}
+.landing-light .auth-card .text-\[\#cdbb9d\],
+.landing-light .auth-card .text-\[\#bfae90\],
+.landing-light .auth-card .text-\[\#9f8f77\] {
+  color: #64748b !important;
+}
+.landing-light .auth-card a,
+.landing-light .auth-card button:not([type="submit"]) {
+  color: #374151 !important;
+}
+.landing-light .auth-card button.font-bold,
+.landing-light .auth-card button.font-medium,
+.landing-light .auth-card .text-\[\#d8b66b\],
+.landing-light .auth-card .text-\[\#b99b65\] {
+  color: #b45309 !important;
+}
+/* Border divider inside auth card */
+.landing-light .auth-card .border-\[\#d8c39c\]\/10 {
+  border-color: #e2e8f0 !important;
+}
+/* Back button in auth card */
+.landing-light .auth-card .bg-white\/\[0\.02\] {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* ===== SCROLL-DRIVEN ANIMATIONS ===== */
+.project-card-even, .task-card-even {
+  animation: slideFromLeft both;
+  animation-timeline: view();
+  animation-range: entry 10% cover 40%;
+}
+.project-card-odd, .task-card-odd {
+  animation: slideFromRight both;
+  animation-timeline: view();
+  animation-range: entry 10% cover 40%;
+}
+
+@keyframes slideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+}
+@keyframes slideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+}
