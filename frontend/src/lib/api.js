@@ -31,10 +31,23 @@ export const apiRequest = async (path, options = {}) => {
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    throw new Error(data.message || "Something went wrong while calling the API.");
+    throw new Error(data.message || "Something went wrong.");
   }
 
   return data;
 };
 
-export { API_URL };
+export const authRequest = (path, options = {}) =>
+  apiRequest(`/auth${path}`, options);
+
+export const userRequest = (path, options = {}) =>
+  apiRequest(`/users${path}`, options);
+
+export const projectRequest = (path, options = {}) =>
+  apiRequest(`/projects${path}`, options);
+
+export const taskRequest = (path, options = {}) =>
+  apiRequest(`/tasks${path}`, options);
+
+export const reportRequest = (path, options = {}) =>
+  apiRequest(`/reports${path}`, options);
