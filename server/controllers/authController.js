@@ -44,22 +44,28 @@ const registerUser = async (req, res) => {
     }
 
     const user = await User.create({ name, email, password, role });
-    const welcomeEmail = buildWelcomeEmail({ name: user.name, role: user.role });
-    await sendEmail({
-      to: user.email,
-      subject: welcomeEmail.subject,
-      html: welcomeEmail.html,
-      text: welcomeEmail.text,
-    });
+
+    try {
+      const welcomeEmail = buildWelcomeEmail({ name: user.name, role: user.role });
+      await sendEmail({
+        to: user.email,
+        subject: welcomeEmail.subject,
+        html: welcomeEmail.html,
+        text: welcomeEmail.text,
+      });
+    } catch (emailError) {
+      console.warn("Welcome email failed (registration still succeeded):", emailError.message);
+    }
 
     return res.status(201).json({
       ...sanitizeUser(user),
       token: generateToken(user._id),
-      message: `${welcomeEmail.subject} Sent successfully.`,
+      message: "Registration successful. Welcome to TaskFlow Nexus!",
     });
   } catch (error) {
     return res.status(500).json({ message: error.message || "Unable to register user." });
   }
+
 };
 
 const loginUser = async (req, res) => {
